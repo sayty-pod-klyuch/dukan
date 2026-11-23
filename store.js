@@ -148,7 +148,9 @@ function openApp(id) {
       <div><b>${a.cat}</b><span>категория</span></div>
     </div>
     <div class="install">${s === 'open' || s === 'update' ? `<button class="btn ghost" onclick="AND&&AND.uninstall('${a.pkg}')">Удалить</button>` : ''}${mainBtn(a)}</div>
-    <div class="shots">${a.shots.map((t, i) => `<div class="shot" style="background:linear-gradient(${160 + i * 25}deg,${a.g[0]},${a.g[1]})"><b>${t}</b><img src="img/${a.shot || a.icon}"><div class="ln" style="width:90%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:75%"></div></div>`).join('')}</div>
+    <div class="shots">${a.screens && a.screens.length
+      ? a.screens.map(u => `<img class="shotimg ${a.wide ? 'wide' : ''}" src="${u}" alt="" loading="lazy" onclick="zoomShot('${u}')">`).join('')
+      : a.shots.map((t, i) => `<div class="shot" style="background:linear-gradient(${160 + i * 25}deg,${a.g[0]},${a.g[1]})"><b>${t}</b><img src="img/${a.shot || a.icon}"><div class="ln" style="width:90%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:75%"></div></div>`).join('')}</div>
     <div class="blk"><h3>О приложении</h3><p>${a.about}</p>
       <div class="tags"><span>${a.cat}</span>${(a.langs || []).map(l => `<span>${l}</span>`).join('')}</div></div>
     ${a.news ? `<div class="blk"><h3>Что нового</h3><div class="whatsnew">${a.news}</div></div>` : ''}
@@ -161,6 +163,14 @@ function openApp(id) {
   show('page'); p.scrollTop = 0;
 }
 
+/* скриншот на весь экран */
+function zoomShot(u) {
+  const m = document.createElement('div');
+  m.className = 'modal zoom';
+  m.innerHTML = `<img src="${u}" alt="">`;
+  m.onclick = () => m.remove();
+  document.querySelector('.phone').appendChild(m);
+}
 function updBadge() {
   const n = A.filter(a => state(a) === 'update').length;
   const b = document.getElementById('upd'); b.textContent = n; b.style.display = n ? '' : 'none';
