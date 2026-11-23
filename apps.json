@@ -293,7 +293,6 @@
     "#1d1d1f",
     "#3a3a3c"
    ],
-   "soon": true,
    "featured": true,
    "short": "Покупка и продажа машин в Туркменистане",
    "about": "Объявления о продаже авто: фото, цены в манатах, фильтры по марке и городу, чат с продавцом.",
@@ -306,7 +305,13 @@
    "langs": [
     "Русский",
     "Türkmen"
-   ]
+   ],
+   "pkg": "com.mashynbazar.app",
+   "versionCode": 32,
+   "versionName": "1.8.3",
+   "bytes": 3101564,
+   "size": "3,0 МБ",
+   "url": "apk/alphacars.apk"
   },
   {
    "id": "tmbiznes",
