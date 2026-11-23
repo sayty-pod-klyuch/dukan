@@ -13,7 +13,8 @@ if (!window.Android && /[?&]most=demo/.test(location.search)) {
     install: (id) => { let p = 0; const t = setInterval(() => { p += 20; onDl(id, p);
       if (p >= 100) { clearInterval(t); const a = DATA.apps.find(x => x.id === id); fake[a.pkg] = a.versionCode; setTimeout(() => onDl(id, 200), 400); } }, 250); },
     open: pkg => toast('Открываю ' + pkg),
-    uninstall: pkg => { delete fake[pkg]; setTimeout(refreshInstalled, 300); }
+    uninstall: pkg => { delete fake[pkg]; setTimeout(refreshInstalled, 300); },
+    exit: () => toast('(демо) приложение закрылось')
   };
 }
 const AND = window.Android || null;
@@ -191,7 +192,25 @@ function doSearch() {
 let hist = ['home'], cur = 'home';
 function show(s) { cur = s; ['home', 'search', 'mine', 'page'].forEach(x => document.getElementById(x).classList.toggle('hide', x !== s)); if (hist[hist.length - 1] !== s) hist.push(s); }
 function back() { hist.pop(); const s = hist[hist.length - 1] || 'home'; if (s === 'home') feed(); if (s === 'mine') renderMine(); show(s); }
-window.appBack = function () { if (hist.length > 1) { back(); return true; } return false; };   // кнопка «назад» Android
+/* Кнопка «Назад» Android: окно → прошлый экран → главная → вопрос «Выйти?». Всегда true: сама страница решает. */
+window.appBack = function () {
+  const m = document.querySelector('.modal');
+  if (m) { m.remove(); return true; }
+  if (hist.length > 1) { back(); return true; }
+  if (cur !== 'home' || tab !== 'app') { go('home'); return true; }
+  askExit(); return true;
+};
+function askExit() {
+  const m = document.createElement('div');
+  m.className = 'modal';
+  m.innerHTML = `<div class="mbox"><b>Выйти из TM Store?</b><p>Загрузки, которые уже идут, остановятся.</p>
+    <div class="mbtns"><button class="btn ghost" data-x>Нет</button><button class="btn" data-ok>Да</button></div></div>`;
+  m.onclick = e => {
+    if (e.target.closest('[data-ok]')) { if (AND && AND.exit) AND.exit(); m.remove(); }
+    else if (e.target === m || e.target.closest('[data-x]')) m.remove();
+  };
+  document.querySelector('.phone').appendChild(m);
+}
 function go(s) {
   document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('on', a.dataset.s === s));
   if (s === 'game') { setTab('game'); s = 'home'; }
