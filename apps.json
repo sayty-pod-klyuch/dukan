@@ -1,6 +1,6 @@
 {
  "store": {
-  "name": "Dükan",
+  "name": "TM Store",
   "dev": "Cloudy",
   "server": "https://sayty-pod-klyuch.github.io/dukan/",
   "big": "https://github.com/sayty-pod-klyuch/dukan/releases/download/apk/"
@@ -8,7 +8,7 @@
  "apps": [
   {
    "id": "dukan",
-   "name": "Dükan",
+   "name": "TM Store",
    "dev": "Cloudy",
    "cat": "Инструменты",
    "kind": "app",
@@ -30,9 +30,9 @@
     "Русский"
    ],
    "pkg": "com.cloudy.dukan",
-   "versionCode": 2,
-   "versionName": "1.1",
-   "bytes": 1631018,
+   "versionCode": 3,
+   "versionName": "1.2",
+   "bytes": 1631070,
    "size": "1,6 МБ",
    "url": "apk/dukan.apk"
   },

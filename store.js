@@ -1,4 +1,4 @@
-/* Dükan — логика магазина.
+/* TM Store — логика магазина.
    Каталог: window.DUKAN_DATA (apps.js, собирается sobrat_katalog.py).
    В приложении есть мост window.Android (MainActivity.Bridge):
      installed(json пакетов) -> {"пакет": versionCode}, install(id, url), open(pkg), uninstall(pkg)
@@ -61,7 +61,7 @@ function refreshButtons() {
 
 function act(id) {
   const a = byId(id), s = state(a);
-  if (s === 'soon') return toast('Скоро появится в Dükan');
+  if (s === 'soon') return toast('Скоро появится в TM Store');
   if (s === 'busy') return;
   if (s === 'open') { if (AND) AND.open(a.pkg); return; }
   if (!AND) {             // сайт: обычное скачивание файла
@@ -76,7 +76,7 @@ function act(id) {
 window.onDl = function (id, p) {
   const a = byId(id); if (!a) return;
   if (p === -1) { delete dl[id]; toast('Не удалось скачать. Проверьте интернет'); }
-  else if (p === -2) { delete dl[id]; toast('Разрешите Dükan устанавливать приложения и нажмите ещё раз'); }
+  else if (p === -2) { delete dl[id]; toast('Разрешите TM Store устанавливать приложения и нажмите ещё раз'); }
   else if (p === -3) { delete dl[id]; toast('Установка отменена'); }
   else if (p === 200) { delete dl[id]; readInstalled(); toast(a.name + ' установлено'); }
   else dl[id] = p;
@@ -154,11 +154,11 @@ function renderMine() {
   readInstalled();
   const up = A.filter(a => state(a) === 'update' || (dl[a.id] !== undefined && inst[a.pkg] !== undefined));
   const mine = A.filter(a => inst[a.pkg] !== undefined);
-  document.getElementById('mylist').innerHTML = !AND ? `<div class="card"><div class="empty">Установите приложение Dükan на телефон —<br>здесь появятся ваши приложения и обновления.</div></div>` : `
+  document.getElementById('mylist').innerHTML = !AND ? `<div class="card"><div class="empty">Установите приложение TM Store на телефон —<br>здесь появятся ваши приложения и обновления.</div></div>` : `
     <div class="card"><div class="tt"><b>Обновления</b><span>${up.length}</span></div>
       ${up.length ? `<div class="list" style="padding:8px 0 0">${up.map(a => `<div class="li">${ic(a, 50)}<div class="t"><b>${a.name}</b><span>${a.size} · v${a.versionName}</span></div>${mainBtn(a, 'sm')}</div>`).join('')}</div>
       <button class="btn" style="width:100%;margin-top:10px" onclick="updateAll()">Обновить всё</button>` : `<div class="empty">Все приложения обновлены ✓</div>`}</div>
-    <div class="card"><div class="tt"><b>Установлено из Dükan</b><span>${mine.length}</span></div>
+    <div class="card"><div class="tt"><b>Установлено из TM Store</b><span>${mine.length}</span></div>
       ${mine.length ? `<div class="list" style="padding:8px 0 0">${mine.map(a => `<div class="li" onclick="openApp('${a.id}')">${ic(a, 50)}<div class="t"><b>${a.name}</b><span>${a.size}</span></div>${mainBtn(a, 'sm')}</div>`).join('')}</div>` : `<div class="empty">Пока ничего не установлено</div>`}</div>`;
   updBadge();
 }
