@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dükan — магазин приложений</title>
+<link rel="stylesheet" href="fonts/onest/index.css">
+<link rel="stylesheet" href="fonts/manrope/index.css">
+<style>
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --line:#e6e8ec; --text:#14171c; --muted:#5f6670; --soft:#eef1f4;
+  --acc:#0e8f6e; --acc-2:#12b48a; --acc-soft:#e3f5ef; --star:#14171c;
+  --r:16px; --font:'Onest Variable',system-ui,sans-serif; --num:'Manrope Variable',system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);color:var(--text);background:#dfe4ea;display:flex;justify-content:center;align-items:center}
+/* рамка телефона на компьютере */
+.phone{width:412px;height:880px;max-height:100vh;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;
+  box-shadow:0 0 0 10px #16191e,0 30px 80px rgba(0,0,0,.25);display:flex;flex-direction:column}
+@media (max-width:500px){body{background:var(--bg)}.phone{width:100%;height:100vh;border-radius:0;box-shadow:none}}
+.status{height:34px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 26px;font:600 13px var(--num);color:var(--text)}
+.screen{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.hide{display:none!important}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* шапка */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:6px 16px 0}
+.search{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:28px;height:50px;padding:0 8px 0 18px;color:var(--muted)}
+.search span{flex:1;font-size:15px}
+.ava{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--acc-2),var(--acc));color:#fff;display:grid;place-items:center;font:700 14px var(--num)}
+.logo{display:flex;align-items:center;gap:8px;font:800 19px var(--num);letter-spacing:-.3px;color:var(--text)}
+.logo b{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#19c093,#0b7d61);display:grid;place-items:center;color:#fff;font-size:15px}
+.tabs{display:flex;gap:4px;margin-top:6px;border-bottom:1px solid var(--line)}
+.tab{flex:1;text-align:center;padding:12px 0 11px;font-weight:600;font-size:14.5px;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer}
+.tab.on{color:var(--acc);border-color:var(--acc)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 16px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:13.5px;font-weight:500;cursor:pointer;color:var(--text)}
+.chip.on{background:var(--acc-soft);border-color:transparent;color:var(--acc);font-weight:600}
+
+/* разделы */
+.sec{padding:18px 0 4px}
+.sec h2{display:flex;justify-content:space-between;align-items:center;margin:0 16px 12px;font-size:18px;font-weight:700;letter-spacing:-.2px}
+.sec h2 small{display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:2px}
+.sec h2 .arr{color:var(--muted)}
+.row{display:flex;gap:12px;overflow-x:auto;padding:0 16px 6px;scroll-snap-type:x mandatory;scroll-padding:0 16px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+
+/* большие баннеры */
+.ban{flex:none;width:300px;scroll-snap-align:start;cursor:pointer}
+.ban .pic{height:168px;border-radius:18px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:16px;color:#fff}
+.ban .pic img{position:absolute;right:-10px;top:-6px;width:150px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.25))}
+.ban .pic h3{margin:0;font-size:20px;line-height:1.15;max-width:170px;position:relative}
+.ban .pic .tag{position:absolute;left:16px;top:14px;font-size:11.5px;font-weight:600;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);padding:4px 9px;border-radius:20px}
+.ban .meta{display:flex;align-items:center;gap:10px;margin-top:10px}
+.ban .meta .ic{width:40px;height:40px}
+.ban .meta .t{flex:1;min-width:0}
+.ban .meta b{display:block;font-size:14px;font-weight:600}
+.ban .meta span{font-size:12.5px;color:var(--muted)}
+
+/* иконки приложений */
+.ic{border-radius:22%;background:#fff;display:grid;place-items:center;overflow:hidden;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.08),inset 0 0 0 1px rgba(0,0,0,.04)}
+.ic img{width:72%;height:72%;object-fit:contain}
+.ic.full img{width:100%;height:100%;object-fit:cover}
+
+.tile{flex:none;width:96px;cursor:pointer}
+.tile .ic{width:96px;height:96px}
+.tile b{display:block;font-size:13px;font-weight:500;margin-top:8px;line-height:1.25;height:32px;overflow:hidden}
+.tile span{font:500 12px var(--num);color:var(--muted)}
+
+/* список с местами */
+.list{padding:0 16px}
+.li{display:flex;align-items:center;gap:14px;padding:9px 0;cursor:pointer}
+.li .n{width:16px;font:600 14px var(--num);color:var(--muted);text-align:center}
+.li .ic{width:58px;height:58px}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block;font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .t span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.li .t em{font:500 12.5px var(--num);font-style:normal;color:var(--muted)}
+.btn{border:0;border-radius:22px;background:var(--acc);color:#fff;font:600 14px var(--font);padding:0 18px;height:38px;cursor:pointer}
+.btn{position:relative;overflow:hidden;flex:none}
+.btn .prog{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.28);width:0;transition:width .2s linear}
+.btn span{position:relative;color:inherit!important;font:inherit!important;display:inline!important;margin:0!important;white-space:nowrap}
+.btn.gray{background:var(--soft);color:var(--muted)}
+.btn.ghost .prog{background:var(--acc-soft)}
+.btn.ghost{background:var(--card);color:var(--acc);border:1px solid var(--line)}
+.btn.sm{height:34px;padding:0 14px;font-size:13px}
+
+/* нижнее меню */
+.nav{flex:none;display:flex;background:var(--card);border-top:1px solid var(--line);padding:8px 0 14px}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;text-decoration:none}
+.nav a .pill{width:60px;height:30px;border-radius:16px;display:grid;place-items:center;transition:.2s}
+.nav a.on{color:var(--text);font-weight:700}
+.nav a.on .pill{background:var(--acc-soft);color:var(--acc)}
+.badge{position:relative}
+.badge i{position:absolute;top:-3px;right:-6px;background:#e5484d;color:#fff;font:700 10px var(--num);font-style:normal;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px}
+
+/* страница приложения */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;padding:6px 8px}
+.bar button{background:none;border:0;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--text)}
+.bar .sp{flex:1}
+.head{display:flex;gap:18px;padding:6px 20px 0}
+.head .ic{width:76px;height:76px}
+.head h1{margin:2px 0 4px;font-size:23px;line-height:1.15;letter-spacing:-.3px}
+.head .dev{color:var(--acc);font-weight:600;font-size:14px}
+.head .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+.stats{display:flex;align-items:center;margin:20px 12px 0;overflow-x:auto;scrollbar-width:none}
+.stats>div{flex:1;text-align:center;padding:0 10px;position:relative;min-width:84px}
+.stats>div+div:before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line)}
+.stats b{display:flex;justify-content:center;align-items:center;gap:3px;font:700 14px var(--num)}
+.stats span{font-size:12px;color:var(--muted)}
+.age{border:1.5px solid var(--text);border-radius:3px;font:800 10px var(--num);padding:0 3px}
+.install{margin:20px 20px 0;display:flex;gap:10px}
+.install .btn{flex:1!important;height:42px;font-size:15px;position:relative;overflow:hidden}
+.install .btn .prog{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.25);width:0;transition:width .15s linear}
+.install .btn span{position:relative}
+.shots{display:flex;gap:10px;overflow-x:auto;padding:22px 20px 4px;scrollbar-width:none}
+.shots::-webkit-scrollbar{display:none}
+.shot{flex:none;width:132px;height:250px;border-radius:14px;position:relative;overflow:hidden;color:#fff;padding:14px 12px;display:flex;flex-direction:column}
+.shot b{font-size:14px;line-height:1.2}
+.shot img{width:84px;margin:auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+.shot .ln{height:8px;border-radius:4px;background:rgba(255,255,255,.35);margin-top:6px}
+.blk{padding:22px 20px 0}
+.blk h3{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;font-size:17px}
+.blk p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tags span{border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:13px;background:var(--card)}
+.safe{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:var(--card);display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:var(--muted)}
+.safe div{display:flex;gap:12px;align-items:flex-start}
+.rate{display:flex;gap:20px;align-items:center}
+.rate .big{text-align:center}
+.rate .big b{font:700 50px/1 var(--num);letter-spacing:-1px}
+.rate .big span{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+.bars{flex:1;display:flex;flex-direction:column;gap:5px}
+.bars div{display:flex;align-items:center;gap:8px;font:500 12px var(--num);color:var(--muted)}
+.bars i{flex:1;height:9px;border-radius:5px;background:var(--soft);overflow:hidden}
+.bars i:after{content:"";display:block;height:100%;width:var(--w);background:var(--acc);border-radius:5px}
+.rev{margin-top:18px;padding-bottom:4px}
+.rev .who{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500}
+.rev .who .ava{width:30px;height:30px;font-size:12px}
+.rev .st{margin:8px 0 6px;font:500 12px var(--num);color:var(--muted)}
+.rev p{font-size:14px;color:var(--text)}
+.stars{color:var(--acc);letter-spacing:1px}
+.whatsnew{background:var(--acc-soft);border-radius:var(--r);padding:14px 16px;font-size:14px;line-height:1.5;color:#1d4f42}
+
+/* поиск и мои */
+.big-search{margin:6px 16px 0;display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:28px;height:50px;padding:0 18px}
+.big-search input{flex:1;border:0;outline:0;font:15px var(--font);background:none;color:var(--text)}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.cat{border-radius:14px;padding:14px;height:78px;position:relative;overflow:hidden;font-weight:600;font-size:14.5px;cursor:pointer;color:#fff}
+.cat img{position:absolute;right:-8px;bottom:-10px;width:62px;transform:rotate(12deg)}
+.h1{font-size:24px;font-weight:700;margin:10px 16px 4px;letter-spacing:-.3px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:12px 16px;padding:16px}
+.card .tt{display:flex;justify-content:space-between;align-items:center}
+.card .tt b{font-size:16px}
+.card .tt span{font-size:13px;color:var(--muted)}
+.toast{position:absolute;left:50%;bottom:90px;transform:translate(-50%,20px);background:#14171c;color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;white-space:nowrap;z-index:9}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.empty{text-align:center;color:var(--muted);padding:30px 20px;font-size:14px}
+html.in-app body{background:var(--bg)}
+html.in-app .phone{width:100%;height:100vh;max-height:none;border-radius:0;box-shadow:none}
+html.in-app .status{display:none}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status"><span>9:41</span><span>▂▄▆ ◔ 87%</span></div>
+
+  <!-- ГЛАВНАЯ -->
+  <div class="screen" id="home">
+    <div class="top">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:2px 2px 10px">
+        <div class="logo"><b>D</b>Dükan</div>
+        <div style="display:flex;gap:6px;align-items:center;color:var(--muted)">
+          <svg class="i"><use href="#i-bell"/></svg><div class="ava" style="margin-left:8px">М</div>
+        </div>
+      </div>
+      <div class="search" onclick="go('search')"><svg class="i"><use href="#i-search"/></svg><span>Поиск приложений и игр</span><svg class="i" style="margin-right:10px"><use href="#i-mic"/></svg></div>
+      <div class="tabs" id="tabs">
+        <div class="tab on" data-k="app">Приложения</div>
+        <div class="tab" data-k="game">Игры</div>
+        <div class="tab" data-k="kids">Для семьи</div>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div id="feed"></div>
+    <div style="height:20px"></div>
+  </div>
+
+  <!-- ПОИСК -->
+  <div class="screen hide" id="search">
+    <div class="h1">Поиск</div>
+    <label class="big-search"><svg class="i" style="color:var(--muted)"><use href="#i-search"/></svg><input id="q" placeholder="Приложения и игры" oninput="doSearch()"></label>
+    <div id="sres"></div>
+  </div>
+
+  <!-- МОИ -->
+  <div class="screen hide" id="mine">
+    <div class="h1">Мои приложения</div>
+    <div id="mylist"></div>
+  </div>
+
+  <!-- СТРАНИЦА ПРИЛОЖЕНИЯ -->
+  <div class="screen hide" id="page"></div>
+
+  <nav class="nav" id="nav">
+    <a data-s="home" class="on"><div class="pill"><svg class="i"><use href="#i-grid"/></svg></div>Главная</a>
+    <a data-s="game"><div class="pill"><svg class="i"><use href="#i-pad"/></svg></div>Игры</a>
+    <a data-s="search"><div class="pill"><svg class="i"><use href="#i-search"/></svg></div>Поиск</a>
+    <a data-s="mine"><div class="pill badge"><svg class="i"><use href="#i-down"/></svg><i id="upd">3</i></div>Мои</a>
+  </nav>
+  <div class="toast" id="toast"></div>
+</div>
+
+<!-- иконки (Lucide, ISC) -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-pad" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15.2A3 3 0 0 0 5 18.5c1 0 2-.5 2.5-1.4L9 15h6l1.5 2.1c.5.9 1.5 1.4 2.5 1.4a3 3 0 0 0 3-3.3l-.7-6.6A4 4 0 0 0 17.3 5Z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+</svg>
+
+<script src="apps.js"></script>
+<script src="store.js"></script>
+</body>
+</html>
