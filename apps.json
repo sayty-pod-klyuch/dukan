@@ -12,10 +12,12 @@
    "dev": "Cloudy",
    "cat": "Инструменты",
    "kind": "app",
-   "icon": "shopping_bags.png",
+   "icon": "tm_store.png",
+   "full": true,
+   "shot": "tm_sumka.png",
    "g": [
-    "#19c093",
-    "#0b7d61"
+    "#0fed9f",
+    "#028763"
    ],
    "last": true,
    "short": "Магазин приложений Cloudy",
@@ -30,10 +32,10 @@
     "Русский"
    ],
    "pkg": "com.cloudy.dukan",
-   "versionCode": 3,
-   "versionName": "1.2",
-   "bytes": 1631070,
-   "size": "1,6 МБ",
+   "versionCode": 4,
+   "versionName": "1.3",
+   "bytes": 1792821,
+   "size": "1,7 МБ",
    "url": "apk/dukan.apk"
   },
   {
@@ -289,6 +291,7 @@
    "kind": "app",
    "icon": "alphacars.png",
    "full": true,
+   "shot": "racing_car.png",
    "g": [
     "#1d1d1f",
     "#3a3a3c"
@@ -307,10 +310,10 @@
     "Türkmen"
    ],
    "pkg": "com.mashynbazar.app",
-   "versionCode": 32,
+   "versionCode": 33,
    "versionName": "1.8.3",
-   "bytes": 3101564,
-   "size": "3,0 МБ",
+   "bytes": 3046221,
+   "size": "2,9 МБ",
    "url": "apk/alphacars.apk"
   },
   {

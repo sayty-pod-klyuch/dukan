@@ -78,10 +78,24 @@ window.onDl = function (id, p) {
   if (p === -1) { delete dl[id]; toast('Не удалось скачать. Проверьте интернет'); }
   else if (p === -2) { delete dl[id]; toast('Разрешите TM Store устанавливать приложения и нажмите ещё раз'); }
   else if (p === -3) { delete dl[id]; toast('Установка отменена'); }
+  else if (p === -4) { delete dl[id]; conflict(a); }
   else if (p === 200) { delete dl[id]; readInstalled(); toast(a.name + ' установлено'); }
   else dl[id] = p;
   refreshButtons(); if (p === 200 && cur === 'mine') renderMine();
 };
+/* Обновление не встаёт: на телефоне версия с другим ключом подписи. Предложить удалить старую. */
+function conflict(a) {
+  const m = document.createElement('div');
+  m.className = 'modal';
+  m.innerHTML = `<div class="mbox"><b>${a.name}: нужна переустановка</b>
+    <p>Новая версия подписана по-новому, поверх старой Android её не ставит. Удалите старую версию и нажмите «Установить» ещё раз.<br><br>Данные внутри приложения (вход, избранное) могут сброситься.</p>
+    <div class="mbtns"><button class="btn ghost" data-x>Отмена</button><button class="btn" data-ok>Удалить старую</button></div></div>`;
+  m.onclick = e => {
+    if (e.target.closest('[data-ok]')) { if (AND) AND.uninstall(a.pkg); m.remove(); }
+    else if (e.target === m || e.target.closest('[data-x]')) m.remove();
+  };
+  document.querySelector('.phone').appendChild(m);
+}
 window.refreshInstalled = function () {
   readInstalled();
   for (const id in dl) if (dl[id] >= 100 && inst[byId(id).pkg] >= byId(id).versionCode) delete dl[id];
@@ -106,7 +120,7 @@ function feed() {
   const hero = feat.map(a => `
     <div class="ban" onclick="openApp('${a.id}')">
       <div class="pic" style="background:linear-gradient(135deg,${a.g[0]},${a.g[1]})">
-        <span class="tag">${a.kind === 'game' ? 'Игра недели' : 'Выбор редакции'}</span><img src="img/${a.full ? 'racing_car.png' : a.icon}"><h3>${a.short}</h3></div>
+        <span class="tag">${a.kind === 'game' ? 'Игра недели' : 'Выбор редакции'}</span><img src="img/${a.shot || a.icon}"><h3>${a.short}</h3></div>
       <div class="meta">${ic(a, 40)}<div class="t"><b>${a.name}</b><span>${a.cat} · ${meta(a)}</span></div>${mainBtn(a, 'sm')}</div>
     </div>`).join('');
   const tiles = list.map(a => `<div class="tile" onclick="openApp('${a.id}')">${ic(a, 96)}<b>${a.name}</b><span>${a.soon ? 'Скоро' : a.size}</span></div>`).join('');
@@ -133,7 +147,7 @@ function openApp(id) {
       <div><b>${a.cat}</b><span>категория</span></div>
     </div>
     <div class="install">${s === 'open' || s === 'update' ? `<button class="btn ghost" onclick="AND&&AND.uninstall('${a.pkg}')">Удалить</button>` : ''}${mainBtn(a)}</div>
-    <div class="shots">${a.shots.map((t, i) => `<div class="shot" style="background:linear-gradient(${160 + i * 25}deg,${a.g[0]},${a.g[1]})"><b>${t}</b><img src="img/${a.full ? 'racing_car.png' : a.icon}"><div class="ln" style="width:90%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:75%"></div></div>`).join('')}</div>
+    <div class="shots">${a.shots.map((t, i) => `<div class="shot" style="background:linear-gradient(${160 + i * 25}deg,${a.g[0]},${a.g[1]})"><b>${t}</b><img src="img/${a.shot || a.icon}"><div class="ln" style="width:90%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:75%"></div></div>`).join('')}</div>
     <div class="blk"><h3>О приложении</h3><p>${a.about}</p>
       <div class="tags"><span>${a.cat}</span>${(a.langs || []).map(l => `<span>${l}</span>`).join('')}</div></div>
     ${a.news ? `<div class="blk"><h3>Что нового</h3><div class="whatsnew">${a.news}</div></div>` : ''}
