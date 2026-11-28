@@ -41,51 +41,7 @@
     "img/shots/dukan/1.jpg",
     "img/shots/dukan/2.jpg",
     "img/shots/dukan/3.jpg"
-   ],
-   "wide": false
-  },
-  {
-   "id": "malysh",
-   "name": "Ждём малыша",
-   "dev": "Cloudy",
-   "cat": "Здоровье",
-   "kind": "kids",
-   "icon": "logo_malysh.png",
-   "g": [
-    "#f472b6",
-    "#db2777"
-   ],
-   "featured": true,
-   "short": "Беременность неделя за неделей — для мамы и папы",
-   "about": "Спокойный помощник на все 40 недель.\n• Неделя за неделей: каким стал малыш и что происходит с мамой.\n• Задачи недели — отдельно для мамы и для папы.\n• Врачи и анализы: что сдать сейчас и что впереди.\n• Списки: вопросы к врачу, документы, сумка в роддом.\n• Кнопка SOS — быстро позвонить близким.\n• Языки: русский, туркменский, турецкий, английский.",
-   "shots": [
-    "Неделя за неделей",
-    "Питание",
-    "Напоминания",
-    "Для папы"
-   ],
-   "langs": [
-    "Русский",
-    "Türkmen",
-    "Türkçe",
-    "English"
-   ],
-   "news": "Кнопка «Назад» теперь работает по экранам, а перед выходом приложение спрашивает «Выйти? Нет / Да».",
-   "shot": "baby.png",
-   "full": true,
-   "pkg": "com.zhdem.malysh",
-   "versionCode": 5,
-   "versionName": "4.1",
-   "bytes": 1100414,
-   "size": "1,0 МБ",
-   "url": "apk/malysh.apk",
-   "screens": [
-    "img/shots/malysh/1.jpg",
-    "img/shots/malysh/2.jpg",
-    "img/shots/malysh/3.jpg",
-    "img/shots/malysh/4.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "steel",
@@ -121,8 +77,7 @@
    "url": "apk/steel.apk",
    "screens": [
     "img/shots/steel/1.jpg"
-   ],
-   "wide": true
+   ]
   },
   {
    "id": "prorab",
@@ -159,8 +114,7 @@
     "img/shots/prorab/1.jpg",
     "img/shots/prorab/2.jpg",
     "img/shots/prorab/3.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "master",
@@ -199,8 +153,7 @@
     "img/shots/master/2.jpg",
     "img/shots/master/3.jpg",
     "img/shots/master/4.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "namaz",
@@ -240,8 +193,7 @@
     "img/shots/namaz/2.jpg",
     "img/shots/namaz/3.jpg",
     "img/shots/namaz/4.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "konverter",
@@ -280,8 +232,7 @@
     "img/shots/konverter/2.jpg",
     "img/shots/konverter/3.jpg",
     "img/shots/konverter/4.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "jay",
@@ -317,8 +268,7 @@
    "url": "apk/jay.apk",
    "screens": [
     "img/shots/jay/1.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "limehome",
@@ -351,8 +301,7 @@
    "url": "apk/limehome.apk",
    "screens": [
     "img/shots/limehome/1.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "alphacars",
@@ -391,8 +340,7 @@
     "img/shots/alphacars/1.jpg",
     "img/shots/alphacars/2.jpg",
     "img/shots/alphacars/3.jpg"
-   ],
-   "wide": false
+   ]
   },
   {
    "id": "tmbiznes",
